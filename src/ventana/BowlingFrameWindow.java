@@ -1,10 +1,12 @@
 package ventana;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class BowlingFrameWindow extends JFrame
+public class BowlingFrameWindow extends JFrame implements ActionListener 
 {
 	private ArrayList<JTextArea> testList1 = new ArrayList<JTextArea>();
 	private ArrayList<JTextArea> testList2 = new ArrayList<JTextArea>();
@@ -13,7 +15,7 @@ public class BowlingFrameWindow extends JFrame
 	{
 		super("Bowling");
 		
-		this.setSize(800,400);
+		this.setSize(650,300);
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -34,6 +36,26 @@ public class BowlingFrameWindow extends JFrame
 		label2.setSize(80,32);
 		label2.setLocation(30,170);
 		this.add(label2);
+		
+		JTextField field = new JTextField();
+		field.setSize(400,32);
+		field.setLocation(30,20);
+		this.add(field);
+		
+		JButton browse = new JButton("Browse");
+		browse.setSize(90,32);
+		browse.setLocation(450, 20);
+		this.add(browse);
+		
+		JButton back = new JButton("Back");
+		back.setSize(90,32);
+		back.setLocation(30, 230);
+		this.add(back);
+		
+		JButton next = new JButton("Next");
+		next.setSize(90,32);
+		next.setLocation(140, 230);
+		this.add(next);
 		
 		this.repaint();
 	}
@@ -65,5 +87,10 @@ public class BowlingFrameWindow extends JFrame
 			this.add(text);
 		
 		this.repaint();
+	}
+
+	public void actionPerformed(ActionEvent e) 
+	{
+		
 	}
 }
