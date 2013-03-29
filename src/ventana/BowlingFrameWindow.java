@@ -8,8 +8,14 @@ import javax.swing.*;
 
 public class BowlingFrameWindow extends JFrame implements ActionListener 
 {
-	private ArrayList<JTextArea> testList1 = new ArrayList<JTextArea>();
+	private ArrayList<JLabel> testList1 = new ArrayList<JLabel>();
 	private ArrayList<JTextArea> testList2 = new ArrayList<JTextArea>();
+	
+	private JTextField field;
+	private JButton browse;
+	private JButton next;
+	private JButton back;
+	private JButton start;
 
 	public BowlingFrameWindow() 
 	{
@@ -37,25 +43,36 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		label2.setLocation(30,170);
 		this.add(label2);
 		
-		JTextField field = new JTextField();
-		field.setSize(400,32);
-		field.setLocation(30,20);
-		this.add(field);
+		this.field = new JTextField();
+		this.field.setSize(400,32);
+		this.field.setLocation(30,20);
+		this.add(this.field);
 		
-		JButton browse = new JButton("Browse");
-		browse.setSize(90,32);
-		browse.setLocation(450, 20);
-		this.add(browse);
+		this.browse = new JButton("Browse");
+		this.browse.setSize(90,32);
+		this.browse.setLocation(450, 20);
+		this.browse.setActionCommand("BROWSE");
+		this.browse.addActionListener(this);
+		this.add(this.browse);
 		
-		JButton back = new JButton("Back");
-		back.setSize(90,32);
-		back.setLocation(30, 230);
-		this.add(back);
+		this.start = new JButton("Start");
+		this.start.setSize(90,32);
+		this.start.setLocation(550, 20);
+		this.start.setActionCommand("START");
+		this.start.addActionListener(this);
+		this.add(this.start);
 		
-		JButton next = new JButton("Next");
-		next.setSize(90,32);
-		next.setLocation(140, 230);
-		this.add(next);
+		this.back = new JButton("Back");
+		this.back.setSize(90,32);
+		this.back.setLocation(30, 230);
+		this.back.setActionCommand("BACK");
+		this.add(this.back);
+		
+		this.next = new JButton("Next");
+		this.next.setSize(90,32);
+		this.next.setLocation(140, 230);
+		this.next.setActionCommand("NEXT");
+		this.add(this.next);
 		
 		this.repaint();
 	}
@@ -64,22 +81,24 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 	{
 		for(int i = 0; i <  10; i++)
 		{
-			JTextArea tempText = new JTextArea();
-			tempText.setSize(48,48);
-			tempText.setEditable(false);
-			tempText.setLocation(120+i*50, 100);
+			JLabel tempText = new JLabel();
+			tempText.setSize(48,22);
+			//tempText.setEditable(false);
+			tempText.setText("   | X");
+			tempText.setLocation(120+i*50, 110);
 			testList1.add(tempText);
 		}
 		
-		for(JTextArea text : testList1)
+		for(JLabel text : testList1)
 			this.add(text);
 		
 		for(int i = 0; i <  10; i++)
 		{
 			JTextArea tempText = new JTextArea();
-			tempText.setSize(48,48);
+			tempText.setSize(48,22);
+			tempText.setText("     | X");
 			tempText.setEditable(false);
-			tempText.setLocation(120+i*50, 170);
+			tempText.setLocation(120+i*50, 180);
 			testList2.add(tempText);
 		}
 		
@@ -91,6 +110,14 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		
+		if(e.getActionCommand() == "BROWSE")
+		{
+			JFileChooser fs = new JFileChooser();
+			int val = fs.showOpenDialog(this);
+			if(val == JFileChooser.APPROVE_OPTION)
+				this.field.setText(fs.getSelectedFile().toString());
+			this.back.setEnabled(false);
+			this.next.setEnabled(false);
+		}
 	}
 }
