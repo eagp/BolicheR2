@@ -11,7 +11,7 @@ public abstract class TwoShotScore implements Score
 
 		this.score1 = (s1>=0) ? s1 : 0;
 		this.score2 = (s2>=0) ? s2 : 0;
-		if(s1+s2>10)
+		if(s1+s2>10 || s1 > 10 || s2 > 10)
 			throw new IllegalStateException("Numero de puntuacion pasada");
 
 		this.scoreTotal = s1+s2; 
