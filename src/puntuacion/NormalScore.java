@@ -1,6 +1,6 @@
 package puntuacion;
 
-public class NormalScore extends TwoShotScore
+public final class NormalScore extends TwoShotScore
 {
 
 	public NormalScore(int s1, int s2) throws IllegalStateException 
