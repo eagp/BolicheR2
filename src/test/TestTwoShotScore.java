@@ -12,6 +12,7 @@ public class TestTwoShotScore {
 	public void testScore() throws IllegalStateException
 	{
 		NormalScore score = new NormalScore(7, 5);
+		score.toString();
 	}
 	
 	@Test

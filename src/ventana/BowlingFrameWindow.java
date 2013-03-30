@@ -3,11 +3,11 @@ package ventana;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.*;
 
 public class BowlingFrameWindow extends JFrame implements ActionListener 
 {
+	private static final long serialVersionUID = 1L;
 	private ArrayList<JLabel> testList1 = new ArrayList<JLabel>();
 	private ArrayList<JTextArea> testList2 = new ArrayList<JTextArea>();
 	

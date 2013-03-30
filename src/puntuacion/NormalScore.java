@@ -17,5 +17,4 @@ public final class NormalScore extends TwoShotScore
 		else 
 			return this.getFirstScore() + " | " + this.getSecondScore(); 
 	}
-
 }

@@ -13,18 +13,21 @@ public class TestThreeShotScore
 	public void testScore1() 
 	{
 		LastScore score = new LastScore(10,10,100);
+		score.toString();
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void testScore2() 
 	{
 		LastScore score = new LastScore(101,10,0);
+		score.toString();
 	}
 
 	@Test(expected=IllegalStateException.class)
 	public void testScore3() 
 	{
 		LastScore score = new LastScore(10,190,0);
+		score.toString();
 	}
 	
 	@Test
