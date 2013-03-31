@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 import java.io.File;
 import org.junit.Test;
 
-import puntuacion.LastScore;
-import puntuacion.NormalScore;
+import puntuacion.tipo_puntuacion.LastScore;
+import puntuacion.tipo_puntuacion.NormalScore;
 import input.BowlingFileReader;
 
 public class TestInput1

@@ -1,4 +1,6 @@
-package puntuacion;
+package puntuacion.tipo_puntuacion;
+
+import puntuacion.ThreeShotScore;
 
 public final class LastScore extends ThreeShotScore 
 {

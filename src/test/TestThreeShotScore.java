@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import puntuacion.LastScore;
+import puntuacion.tipo_puntuacion.LastScore;
+
 
 public class TestThreeShotScore 
 {

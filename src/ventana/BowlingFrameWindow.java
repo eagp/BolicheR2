@@ -1,15 +1,23 @@
 package ventana;
 
+import input.BowlingFileReader;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import puntuacion.Score;
 
 public class BowlingFrameWindow extends JFrame implements ActionListener 
 {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<JLabel> testList1 = new ArrayList<JLabel>();
+	private ArrayList<JTextArea> testList1 = new ArrayList<JTextArea>();
 	private ArrayList<JTextArea> testList2 = new ArrayList<JTextArea>();
+	private ArrayList<Score> score1 = new ArrayList<Score>();
+	private ArrayList<Score> score2 = new ArrayList<Score>();
+	private BowlingFileReader bfr = null;
 	
 	private JTextField field;
 	private JButton browse;
@@ -21,14 +29,15 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 	{
 		super("Bowling");
 		
-		this.setSize(650,300);
+		this.setSize(690,300);
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		
 		this.initialize();
-		this.addText();
+		this.back.setEnabled(false);
+		this.next.setEnabled(false);
 	}
 	
 	private void initialize()
@@ -79,32 +88,28 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 	
 	private void addText()
 	{
-		for(int i = 0; i <  10; i++)
+		for(int i = 0; i <  this.score1.size(); i++)
 		{
-			JLabel tempText = new JLabel();
-			tempText.setSize(48,22);
-			//tempText.setEditable(false);
-			tempText.setText("   | X");
+			JTextArea tempText = new JTextArea();
+			tempText.setSize(i == 9 ? 58 : 32,32);
+			tempText.setText(this.score1.get(i).toString()+String.format("\n%d",this.score1.get(i).getTotal()));
 			tempText.setLocation(120+i*50, 110);
 			testList1.add(tempText);
 		}
 		
-		for(JLabel text : testList1)
+		for(JTextArea text : testList1)
 			this.add(text);
-		
 		for(int i = 0; i <  10; i++)
 		{
 			JTextArea tempText = new JTextArea();
-			tempText.setSize(48,22);
-			tempText.setText("     | X");
-			tempText.setEditable(false);
+			tempText.setSize(i == 9 ? 58 : 32,32);
+			tempText.setText(this.score2.get(i).toString()+String.format("\n%d",this.score2.get(i).getTotal()));
 			tempText.setLocation(120+i*50, 180);
 			testList2.add(tempText);
 		}
 		
 		for(JTextArea text : testList2)
 			this.add(text);
-		
 		this.repaint();
 	}
 
@@ -116,8 +121,22 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 			int val = fs.showOpenDialog(this);
 			if(val == JFileChooser.APPROVE_OPTION)
 				this.field.setText(fs.getSelectedFile().toString());
-			this.back.setEnabled(false);
-			this.next.setEnabled(false);
+		}
+		
+		if(e.getActionCommand() == "START")
+		{
+			try
+			{
+				this.bfr = new BowlingFileReader(new File(this.field.getText()));
+				ScoreFrame sf = new ScoreFrame(bfr);
+				this.score1 = sf.getPlayerOneScore();
+				this.score2 = sf.getPlayerTwoScore();
+			}
+			catch(IllegalStateException err)
+			{
+				System.out.println(err.getLocalizedMessage());
+			}
+			this.addText();
 		}
 	}
 }

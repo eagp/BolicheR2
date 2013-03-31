@@ -1,4 +1,6 @@
-package puntuacion;
+package puntuacion.tipo_puntuacion;
+
+import puntuacion.TwoShotScore;
 
 public final class NormalScore extends TwoShotScore
 {

@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import puntuacion.NormalScore;
+import puntuacion.tipo_puntuacion.NormalScore;
+
 
 public class TestTwoShotScore {
 
