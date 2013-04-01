@@ -19,6 +19,7 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 	private ArrayList<Score> score2 = new ArrayList<Score>();
 	private BowlingFileReader bfr = null;
 	
+	
 	private JTextField field;
 	private JButton browse;
 	private JButton next;
@@ -33,15 +34,7 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		this.setResizable(false);
 		this.setLayout(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
 		
-		this.initialize();
-		this.back.setEnabled(false);
-		this.next.setEnabled(false);
-	}
-	
-	private void initialize()
-	{
 		JLabel label = new JLabel("Player 1:");
 		label.setSize(80,32);
 		label.setLocation(30,100);
@@ -83,7 +76,9 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		this.next.setActionCommand("NEXT");
 		this.add(this.next);
 		
-		this.repaint();
+		this.back.setEnabled(false);
+		this.next.setEnabled(false);
+		this.setVisible(true);
 	}
 	
 	private void addText()
@@ -99,7 +94,8 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		
 		for(JTextArea text : testList1)
 			this.add(text);
-		for(int i = 0; i <  10; i++)
+		
+		for(int i = 0; i < this.score2.size(); i++)
 		{
 			JTextArea tempText = new JTextArea();
 			tempText.setSize(i == 9 ? 58 : 32,32);
@@ -110,6 +106,7 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		
 		for(JTextArea text : testList2)
 			this.add(text);
+		
 		this.repaint();
 	}
 
@@ -121,22 +118,33 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 			int val = fs.showOpenDialog(this);
 			if(val == JFileChooser.APPROVE_OPTION)
 				this.field.setText(fs.getSelectedFile().toString());
+			this.next.setEnabled(false);
+			this.back.setEnabled(false);
 		}
 		
 		if(e.getActionCommand() == "START")
 		{
+			for(JTextArea temp1:this.testList1)
+				this.remove(temp1);
+			for(JTextArea temp2:this.testList2)
+				this.remove(temp2);
+			
+			this.testList1.clear();
+			this.testList2.clear();
+			
+			this.repaint();
 			try
 			{
 				this.bfr = new BowlingFileReader(new File(this.field.getText()));
 				ScoreFrame sf = new ScoreFrame(bfr);
 				this.score1 = sf.getPlayerOneScore();
 				this.score2 = sf.getPlayerTwoScore();
+				this.addText();
 			}
 			catch(IllegalStateException err)
 			{
-				System.out.println(err.getLocalizedMessage());
+				JOptionPane.showMessageDialog(this, err.getLocalizedMessage());
 			}
-			this.addText();
 		}
 	}
 }

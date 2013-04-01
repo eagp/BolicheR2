@@ -40,36 +40,36 @@ public final class ScoreFrame
 	
 	private void completePlayerOneScore()
 	{
-		int limit = this.player1LineScore.size()/2; 
-		for(int i = 0 ; i<limit && i<9 && this.score1.get(i) != null; i++)   
+		int limit = this.score1.size();
+		for(int i = 0 ; i < limit && i<9; i++)   
 		{
-			if(score1.get(i).isStrike() && score1.get(i+1) != null) 
-				if(score1.get(i+1).isStrike() && score1.get(i+2) != null)
+			if(score1.get(i).isStrike() && i+1 < limit)
+				if(score1.get(i+1).isStrike() && i+2 < limit)
 				{ 
-					score1.get(i+1).addToTotal(10 + score1.get(i+2).getFirstScore());
+					score1.get(i).addToTotal(10 + score1.get(i+2).getFirstScore());
 					if(i>0) 
-						score1.get(i).addToTotal(score1.get(i-1).getTotal());
+						score1.get(i).addToTotal(score1.get(i+1).getFirstScore() + score1.get(i+1).getSecondScore());
 					continue;
 				}
 				else
 				{
-					if(score1.get(i+1) != null) // Si es strike pero el otro no es strike se le suman los valores del 1 y 2 
-						score1.get(i).addToTotal(score1.get(i+1).getFirstScore() + score1.get(i+1).getSecondScore());
-					if(i>0) // si no es el primer score se suma el score anterior 
+					score1.get(i).addToTotal(score1.get(i+1).getTotal());
+					if(i>0) 
 						score1.get(i).addToTotal(score1.get(i-1).getTotal());
 					continue;
 				}
-			if(score1.get(i).isSpare() && score1.get(i+1) != null)
+			if(score1.get(i).isSpare() && i + 1 < limit)
 			{
 				score1.get(i).addToTotal(score1.get(i+1).getFirstScore());
 				if(i>0)
 					score1.get(i).addToTotal(score1.get(i-1).getTotal());
 				continue;
 			}
+			
 			if(i>0) 
 				score1.get(i).addToTotal(score1.get(i-1).getTotal());
 		}
-		if(this.score1.get(8) != null && this.score1.get(9) != null)
+		if(limit == 10)
 			score1.get(9).addToTotal(score1.get(8).getTotal());
 	}
 
@@ -78,10 +78,10 @@ public final class ScoreFrame
 		return this.score1;
 	}
 	
-
+	
 	private void setPlayerTwoScore()
 	{
-		if(this.player2LineScore.isEmpty())
+		if(this.player1LineScore.isEmpty())
 			return;
 		int limit = this.player2LineScore.size()/2;
 		int it = 0;
@@ -94,40 +94,40 @@ public final class ScoreFrame
 	
 	private void completePlayerTwoScore()
 	{
-		int limit = this.player2LineScore.size()/2; 
-		for(int i = 0 ; i<limit && i<9 && this.score2.get(i) != null; i++)   
+		int limit = this.score2.size();
+		for(int i = 0 ; i < limit && i<9; i++)   
 		{
-			if(score2.get(i).isStrike() && score2.get(i+1) != null) 
-				if(score2.get(i+1).isStrike() && score2.get(i+2) != null)
+			if(score2.get(i).isStrike() && i+1 < limit)
+				if(score2.get(i+1).isStrike() && i+2 < limit)
 				{ 
-					score2.get(i+1).addToTotal(10 + score2.get(i+2).getFirstScore());
+					score2.get(i).addToTotal(10 + score2.get(i+2).getFirstScore());
 					if(i>0) 
 						score2.get(i).addToTotal(score2.get(i-1).getTotal());
 					continue;
 				}
 				else
 				{
-					if(score2.get(i+1) != null) 
-						score2.get(i).addToTotal(score2.get(i+1).getFirstScore() + score2.get(i+1).getSecondScore());
+					score2.get(i).addToTotal(score2.get(i+1).getFirstScore() + score2.get(i+1).getSecondScore());
 					if(i>0) 
 						score2.get(i).addToTotal(score2.get(i-1).getTotal());
 					continue;
 				}
-			if(score2.get(i).isSpare() && score2.get(i+1) != null)
+			if(score2.get(i).isSpare() && i + 1 < limit)
 			{
 				score2.get(i).addToTotal(score2.get(i+1).getFirstScore());
 				if(i>0)
 					score2.get(i).addToTotal(score2.get(i-1).getTotal());
 				continue;
 			}
+			
 			if(i>0) 
 				score2.get(i).addToTotal(score2.get(i-1).getTotal());
 		}
-		if(this.score2.get(8) != null && this.score2.get(9) != null)
+		
+		if(limit == 10)
 			score2.get(9).addToTotal(score2.get(8).getTotal());
 	}
-	
-	
+
 	public ArrayList<Score> getPlayerTwoScore()
 	{
 		return this.score2;
