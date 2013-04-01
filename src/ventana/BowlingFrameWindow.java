@@ -18,7 +18,7 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 	private ArrayList<Score> score1 = new ArrayList<Score>();
 	private ArrayList<Score> score2 = new ArrayList<Score>();
 	private BowlingFileReader bfr = null;
-	
+	private int limit = 0;
 	
 	private JTextField field;
 	private JButton browse;
@@ -68,12 +68,14 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		this.back.setSize(90,32);
 		this.back.setLocation(30, 230);
 		this.back.setActionCommand("BACK");
+		this.back.addActionListener(this);
 		this.add(this.back);
 		
 		this.next = new JButton("Next");
 		this.next.setSize(90,32);
 		this.next.setLocation(140, 230);
 		this.next.setActionCommand("NEXT");
+		this.next.addActionListener(this);
 		this.add(this.next);
 		
 		this.back.setEnabled(false);
@@ -87,8 +89,9 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		{
 			JTextArea tempText = new JTextArea();
 			tempText.setSize(i == 9 ? 58 : 32,32);
-			tempText.setText(this.score1.get(i).toString()+String.format("\n%d",this.score1.get(i).getTotal()));
+			//tempText.setText(this.score1.get(i).toString()+String.format("\n%d",this.score1.get(i).getTotal()));
 			tempText.setLocation(120+i*50, 110);
+			tempText.setEditable(false);
 			testList1.add(tempText);
 		}
 		
@@ -99,13 +102,27 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		{
 			JTextArea tempText = new JTextArea();
 			tempText.setSize(i == 9 ? 58 : 32,32);
-			tempText.setText(this.score2.get(i).toString()+String.format("\n%d",this.score2.get(i).getTotal()));
+			//tempText.setText(this.score2.get(i).toString()+String.format("\n%d",this.score2.get(i).getTotal()));
 			tempText.setLocation(120+i*50, 180);
+			tempText.setEditable(false);
 			testList2.add(tempText);
 		}
 		
 		for(JTextArea text : testList2)
 			this.add(text);
+		
+		this.repaint();
+	}
+	
+	private void deleteScore()
+	{
+		for(JTextArea temp1:this.testList1)
+			this.remove(temp1);
+		for(JTextArea temp2:this.testList2)
+			this.remove(temp2);
+		
+		this.testList1.clear();
+		this.testList2.clear();
 		
 		this.repaint();
 	}
@@ -124,27 +141,51 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 		
 		if(e.getActionCommand() == "START")
 		{
-			for(JTextArea temp1:this.testList1)
-				this.remove(temp1);
-			for(JTextArea temp2:this.testList2)
-				this.remove(temp2);
+			this.deleteScore();
+			this.limit = 0;
+			this.score1.clear();
+			this.score2.clear();
+			this.back.setEnabled(false);
+			this.next.setEnabled(false);
 			
-			this.testList1.clear();
-			this.testList2.clear();
-			
-			this.repaint();
 			try
 			{
 				this.bfr = new BowlingFileReader(new File(this.field.getText()));
 				ScoreFrame sf = new ScoreFrame(bfr);
 				this.score1 = sf.getPlayerOneScore();
 				this.score2 = sf.getPlayerTwoScore();
+				this.next.setEnabled(true);
 				this.addText();
 			}
 			catch(IllegalStateException err)
 			{
 				JOptionPane.showMessageDialog(this, err.getLocalizedMessage());
 			}
+		}
+		if(e.getActionCommand() == "BACK")
+		{
+			this.next.setEnabled(true);
+			this.limit--;
+			if(this.limit == 0)
+			{
+				this.back.setEnabled(false);
+			}
+			
+			this.testList1.get(this.limit).setText("");
+			if(this.testList2.size() == this.testList1.size() || this.limit < this.score2.size())
+				this.testList2.get(this.limit).setText("");		
+		}
+		if(e.getActionCommand() == "NEXT")
+		{
+			this.back.setEnabled(true);
+			if(limit == this.score1.size()-1)
+				this.next.setEnabled(false);
+			this.testList1.get(this.limit).setText(this.score1.get(this.limit).toString() 
+					+ "\n" + this.score1.get(this.limit).getTotal());
+			if(this.testList2.size() == this.testList1.size() || this.limit < this.score2.size())
+				this.testList2.get(this.limit).setText(this.score1.get(this.limit).toString() 
+						+ "\n" + this.score2.get(this.limit).getTotal());
+			this.limit++;
 		}
 	}
 }

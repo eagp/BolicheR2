@@ -1,8 +1,5 @@
 SEGUNDA EDICION DEL PROGRAMA DE BOLICHE
 
-TO DO:
--Hay que darles uso a los botones de back y next
-
 Resumen:
 -Se creo un paquete adentro de puntuacion que incluye las clases que extienden a
 aqueyas clases que implementan la interface Score
