@@ -183,7 +183,7 @@ public class BowlingFrameWindow extends JFrame implements ActionListener
 			this.testList1.get(this.limit).setText(this.score1.get(this.limit).toString() 
 					+ "\n" + this.score1.get(this.limit).getTotal());
 			if(this.testList2.size() == this.testList1.size() || this.limit < this.score2.size())
-				this.testList2.get(this.limit).setText(this.score1.get(this.limit).toString() 
+				this.testList2.get(this.limit).setText(this.score2.get(this.limit).toString() 
 						+ "\n" + this.score2.get(this.limit).getTotal());
 			this.limit++;
 		}
