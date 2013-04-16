@@ -1,9 +1,9 @@
 SEGUNDA EDICION DEL PROGRAMA DE BOLICHE
 
--Se tiene anadido la interface Score que debe de ser implementada.
-Se pide la creacion de dos clases abstractas que implementen todos los metodos 
-excepto toString() para una puntuacion de dos tiros y una puntuacion final de
-tres tiros con los metodos que no necesitan como final para que al ser extendidas
-no los hereden y se comporten como tienen que comportarse.
-
--Hay que implementar los listener de los botones
+Resumen:
+-Se creo un paquete adentro de puntuacion que incluye las clases que extienden a
+aqueyas clases que implementan la interface Score
+-Se utiliza el algoritmo de la edicion anterior del programa de boliche para ahorrar
+tiempo y utilizar la clase BowlingFileReader de la misma manera que la edicion anterior 
+-Se han pasado todas las pruebas de JUnit exitosamente
+-Ya no se van a hacer mas pruebas con JUnit

@@ -53,22 +53,22 @@ public abstract class TwoShotScore implements Score
 	 * No deben ser heredados
 	 * */
 
-	public final int getThirdScore() 
+	final public int getThirdScore() 
 	{
 		return 0;
 	}
 
-	public final boolean isFirstStrike() 
+	final public boolean isFirstStrike() 
 	{
 		return false;
 	}
 
-	public final boolean isFirstSetSpare() 
+	final public boolean isFirstSetSpare() 
 	{
 		return false;
 	}
 
-	public final boolean isPerfect() 
+	final public boolean isPerfect() 
 	{
 		return false;
 	}

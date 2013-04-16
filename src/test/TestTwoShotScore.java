@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import puntuacion.NormalScore;
+import puntuacion.tipo_puntuacion.NormalScore;
+
 
 public class TestTwoShotScore {
 
@@ -12,6 +13,7 @@ public class TestTwoShotScore {
 	public void testScore() throws IllegalStateException
 	{
 		NormalScore score = new NormalScore(7, 5);
+		score.toString();
 	}
 	
 	@Test
